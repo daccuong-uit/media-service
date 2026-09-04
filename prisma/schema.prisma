@@ -1,0 +1,27 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../node_modules/@prisma/client-media"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("MEDIA_DATABASE_URL")
+}
+
+model Media {
+  id            String   @id @default(uuid()) @db.Uuid
+  file_name     String   @map("file_name")
+  original_name String   @map("original_name")
+  mime_type     String   @map("mime_type")
+  file_size     BigInt   @map("file_size")
+  storage_path  String   @map("storage_path")
+  user_id       String   @map("user_id") @db.Uuid
+  status        String   @default("pending") @map("status")
+  thumbnail_path String?  @map("thumbnail_path")
+  fallback_url   String?  @map("fallback_url")
+  metadata      Json?    @map("metadata")
+  created_at    DateTime @default(now()) @map("created_at")
+  updated_at    DateTime @updatedAt @map("updated_at")
+
+  @@map("media")
+}

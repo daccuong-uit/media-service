@@ -1,0 +1,52 @@
+{
+  "name": "@app/media-service",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "build": "nest build",
+    "dev": "dotenv -e ../../.env -- nest start --watch",
+    "start": "dotenv -e ../../.env -- node dist/main",
+    "lint": "eslint src --ext .ts",
+    "test": "jest",
+    "db:generate": "dotenv -e ../../.env -- prisma generate",
+    "db:migrate": "dotenv -e ../../.env -- prisma migrate dev --name init",
+    "db:studio": "dotenv -e ../../.env -- prisma studio",
+    "db:push": "dotenv -e ../../.env -- prisma db push"
+  },
+  "dependencies": {
+    "@nestjs/common": "^10.0.0",
+    "@nestjs/config": "^3.0.0",
+    "@nestjs/core": "^10.0.0",
+    "@nestjs/bullmq": "^10.0.0",
+    "@nestjs/platform-express": "^10.0.0",
+    "@nestjs/swagger": "^7.0.0",
+    "@platform/auth-sdk": "*",
+    "@platform/common": "*",
+    "@platform/config": "*",
+    "@platform/db": "*",
+    "@platform/logger": "*",
+    "@platform/redis": "*",
+    "@platform/tracing": "*",
+    "@prisma/client": "^5.22.0",
+    "bullmq": "^5.0.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.0",
+    "ioredis": "^5.3.0",
+    "minio": "^7.1.0",
+    "multer": "^1.4.5-lts.1",
+    "reflect-metadata": "^0.1.13",
+    "rxjs": "^7.8.0",
+    "swagger-ui-express": "^5.0.0",
+    "uuid": "^9.0.0",
+    "zod": "^3.22.0"
+  },
+  "devDependencies": {
+    "@nestjs/cli": "^10.0.0",
+    "@nestjs/testing": "^10.0.0",
+    "@types/multer": "^1.4.11",
+    "@types/node": "^20.0.0",
+    "@types/uuid": "^9.0.0",
+    "prisma": "^5.14.0",
+    "typescript": "^5.0.0"
+  }
+}
