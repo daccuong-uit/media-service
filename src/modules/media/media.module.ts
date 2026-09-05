@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { MediaController } from './media.controller';
-import { MediaService } from './media.service';
-import { StorageModule } from '../../infrastructure/storage/storage.module';
-import { PrismaModule } from '../../infrastructure/database/prisma.module';
-import { QueueModule } from '../../infrastructure/queue/queue.module';
+import { MediaController } from './controllers/media.controller';
+import { MediaService } from './services/media.service';
+import { StorageModule } from '../../common/storage/storage.module';
+import { PrismaModule } from '../../common/database/prisma.module';
+import { QueueModule } from '../../common/queue/queue.module';
 
 @Module({
   imports: [StorageModule, PrismaModule, QueueModule],

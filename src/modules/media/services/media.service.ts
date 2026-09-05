@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { PrismaService } from '../../infrastructure/database/prisma.service';
-import { StorageService } from '../../infrastructure/storage/storage.service';
+import { PrismaService } from '../../../common/database/prisma.service';
+import { StorageService } from '../../../common/storage/storage.service';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { Media } from '@prisma/client-media';

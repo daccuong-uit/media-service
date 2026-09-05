@@ -17,7 +17,7 @@ import {
 import { Response, Request } from 'express';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { ApiTags, ApiOperation, ApiConsumes, ApiBody, ApiResponse, ApiHeader, ApiQuery } from '@nestjs/swagger';
-import { MediaService } from './media.service';
+import { MediaService } from '../services/media.service';
 
 @ApiTags('media')
 @Controller('media')
