@@ -3,7 +3,7 @@ import { z } from 'zod';
 const configSchema = z.object({
   PORT: z.coerce.number().default(3003),
   NODE_ENV: z.string().default('development'),
-  DATABASE_URL: z.string(),
+  DATABASE_URL: z.string().url(),
   REDIS_URL: z.string(),
   CORS_ORIGIN: z.string().default('*'),
   MINIO_ENDPOINT: z.string(),

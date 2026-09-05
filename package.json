@@ -3,15 +3,15 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "build": "nest build",
-    "dev": "dotenv -e ../../.env -- nest start --watch",
-    "start": "dotenv -e ../../.env -- node dist/main",
+    "build": "prisma generate && nest build",
+    "dev": "dotenv -e .env -- nest start --watch",
+    "start": "dotenv -e .env -- node dist/main",
     "lint": "eslint src --ext .ts",
     "test": "jest",
-    "db:generate": "dotenv -e ../../.env -- prisma generate",
-    "db:migrate": "dotenv -e ../../.env -- prisma migrate dev --name init",
-    "db:studio": "dotenv -e ../../.env -- prisma studio",
-    "db:push": "dotenv -e ../../.env -- prisma db push"
+    "db:generate": "dotenv -e .env -- prisma generate",
+    "db:migrate": "dotenv -e .env -- prisma migrate dev",
+    "db:studio": "dotenv -e .env -- prisma studio",
+    "db:push": "dotenv -e .env -- prisma db push"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -42,6 +42,7 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.0.0",
     "@types/uuid": "^9.0.0",
+    "dotenv-cli": "^11.0.0",
     "prisma": "^5.14.0",
     "typescript": "^5.0.0"
   }

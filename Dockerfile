@@ -1,26 +1,24 @@
-FROM node:20-alpine AS base
+﻿FROM node:20-alpine AS builder
 WORKDIR /app
+RUN apk add --no-cache openssl
+COPY package.json .npmrc ./
+ARG NODE_AUTH_TOKEN
+ENV NODE_AUTH_TOKEN=$NODE_AUTH_TOKEN
+RUN npm install
+COPY tsconfig.json tsconfig.base.json ./
+COPY src ./src
+COPY prisma ./prisma
+RUN npx prisma generate && npx nest build
 
-FROM base AS deps
-COPY package.json yarn.lock* package-lock.json* pnpm-lock.yaml* ./
-COPY apps/media-service/package.json ./apps/media-service/
-COPY packages/logger/package.json ./packages/logger/
-COPY packages/config/package.json ./packages/config/
-COPY packages/db/package.json ./packages/db/
-COPY packages/redis/package.json ./packages/redis/
-COPY packages/tracing/package.json ./packages/tracing/
-COPY packages/auth-sdk/package.json ./packages/auth-sdk/
-RUN npm ci --workspace=@app/media-service
-
-FROM base AS builder
-COPY --from=deps /app/node_modules ./node_modules
-COPY . .
-RUN npx turbo run build --filter=@app/media-service
-
-FROM base AS runner
+FROM node:20-alpine AS runner
 ENV NODE_ENV=production
-COPY --from=builder /app/apps/media-service/dist ./dist
-COPY --from=builder /app/apps/media-service/prisma ./prisma
+WORKDIR /app
+RUN apk add --no-cache openssl
 COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/package.json ./package.json
+RUN chown -R node:node /app
+USER node
 EXPOSE 3003
-CMD ["node", "dist/main"]
+CMD ["sh", "-c", "npx prisma migrate deploy --schema=./prisma/schema.prisma && node dist/main"]
