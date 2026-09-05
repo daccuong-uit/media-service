@@ -1,4 +1,4 @@
-import { initTracing } from '@platform/tracing';
+import { initTracing } from '@daccuong-uit/platform-tracing';
 
 // Must be called BEFORE any other imports to auto-instrument HTTP/DB calls
 initTracing({ serviceName: 'media-service' });
@@ -8,7 +8,7 @@ import { ValidationPipe, BadRequestException } from '@nestjs/common';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { appConfig } from './config/app.config';
-import { AllExceptionsFilter, TransformInterceptor } from '@platform/common';
+import { AllExceptionsFilter, TransformInterceptor } from '@daccuong-uit/platform-http-common';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
