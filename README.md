@@ -10,6 +10,7 @@ From the Agent repository:
 docker compose up -d media-postgres media-service media-worker
 ```
 
+API base: `http://localhost:3003/api/v1`.
 Health check: `http://localhost:3003/health`.
 
 MinIO stores media objects. PostgreSQL stores metadata only. Media does not use IAM or Social databases.
