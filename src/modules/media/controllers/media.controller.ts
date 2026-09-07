@@ -178,6 +178,19 @@ export class MediaController {
     @Param('id', ParseUUIDPipe) id: string,
     @Body() body: { status: string; metadata?: any; thumbnail_path?: string; storage_path?: string; fallback_url?: string },
   ) {
-    return this.mediaService.updateStatus(id, body.status, body.metadata, body.thumbnail_path, body.storage_path, body.fallback_url);
+    const media = await this.mediaService.updateStatus(
+      id,
+      body.status,
+      body.metadata,
+      body.thumbnail_path,
+      body.storage_path,
+      body.fallback_url,
+    );
+
+    return {
+      id: media.id,
+      status: media.status,
+      fileSize: media.file_size.toString(),
+    };
   }
 }

@@ -4,6 +4,7 @@ dist/
 build/
 .turbo/
 *.log
+*.tsbuildinfo
 
 # Environment & Local Secrets
 .env

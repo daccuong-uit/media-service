@@ -8,6 +8,7 @@ const logger = createLogger({ service: 'media-service:storage' });
 @Injectable()
 export class StorageService implements OnModuleInit {
   private minioClient: Minio.Client;
+  private publicMinioClient: Minio.Client;
 
   constructor() {
     this.minioClient = new Minio.Client({
@@ -16,6 +17,14 @@ export class StorageService implements OnModuleInit {
       useSSL: appConfig.MINIO_USE_SSL,
       accessKey: appConfig.MINIO_ACCESS_KEY,
       secretKey: appConfig.MINIO_SECRET_KEY,
+    });
+    this.publicMinioClient = new Minio.Client({
+      endPoint: appConfig.MINIO_PUBLIC_ENDPOINT,
+      port: appConfig.MINIO_PORT,
+      useSSL: appConfig.MINIO_USE_SSL,
+      accessKey: appConfig.MINIO_ACCESS_KEY,
+      secretKey: appConfig.MINIO_SECRET_KEY,
+      region: 'us-east-1',
     });
   }
 
@@ -118,7 +127,7 @@ export class StorageService implements OnModuleInit {
 
   async getPresignedUrl(fileName: string, expiry: number = 3600) {
     try {
-      return await this.minioClient.presignedGetObject(appConfig.MINIO_BUCKET, fileName, expiry);
+      return await this.publicMinioClient.presignedGetObject(appConfig.MINIO_BUCKET, fileName, expiry);
     } catch (error: any) {
       logger.error(`Error generating presigned URL: ${error.message}`);
       throw new InternalServerErrorException('Failed to generate download URL');
@@ -137,7 +146,7 @@ export class StorageService implements OnModuleInit {
   async getPresignedPutUrl(fileName: string, mimeType: string, expiry: number = 3600) {
     try {
       // Dùng presignedPutObject của MinIO SDK
-      return await this.minioClient.presignedPutObject(
+      return await this.publicMinioClient.presignedPutObject(
         appConfig.MINIO_BUCKET,
         fileName,
         expiry
