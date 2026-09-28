@@ -4,14 +4,14 @@
   "private": true,
   "scripts": {
     "build": "prisma generate && nest build",
-    "dev": "dotenv -e .env -- nest start --watch",
-    "start": "dotenv -e .env -- node dist/main",
+    "dev": "dotenv-cli -e .env -- nest start --watch",
+    "start": "dotenv-cli -e .env -- node dist/main",
     "lint": "eslint src --ext .ts",
     "test": "jest",
-    "db:generate": "dotenv -e .env -- prisma generate",
-    "db:migrate": "dotenv -e .env -- prisma migrate dev",
-    "db:studio": "dotenv -e .env -- prisma studio",
-    "db:push": "dotenv -e .env -- prisma db push"
+    "db:generate": "dotenv-cli -e .env -- prisma generate",
+    "db:migrate": "dotenv-cli -e .env -- prisma migrate dev",
+    "db:studio": "dotenv-cli -e .env -- prisma studio",
+    "db:push": "dotenv-cli -e .env -- prisma db push"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
@@ -20,9 +20,9 @@
     "@nestjs/bullmq": "^10.0.0",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/swagger": "^7.0.0",
-        "@daccuong-uit/platform-http-common": "^1.0.1",
-            "@daccuong-uit/platform-logger": "^1.0.0",
-        "@daccuong-uit/platform-tracing": "^1.0.0",
+    "@daccuong-uit/platform-http-common": "^1.0.1",
+    "@daccuong-uit/platform-logger": "^1.0.0",
+    "@daccuong-uit/platform-tracing": "^1.0.0",
     "@prisma/client": "^5.22.0",
     "bullmq": "^5.0.0",
     "class-transformer": "^0.5.1",
@@ -42,7 +42,7 @@
     "@types/multer": "^1.4.11",
     "@types/node": "^20.0.0",
     "@types/uuid": "^9.0.0",
-    "dotenv-cli": "^11.0.0",
+    "dotenv-cli": "^7.4.4",
     "prisma": "^5.14.0",
     "typescript": "^5.0.0"
   }
